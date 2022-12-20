@@ -1,0 +1,16 @@
+.Header{
+    background-color: #8DB02E;
+    padding: 18px 6px 18px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.4rem;
+
+    &__Logo{
+        
+       img{
+        width: 180px;
+       }
+    }
+
+}
