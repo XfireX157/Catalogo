@@ -5,7 +5,7 @@ import Video from "../../Components/Video";
 import WhatsApp from "../../Components/WhatsApp";
 
 
-function App() {
+function Home() {
   return (
     <div>
       <div>
@@ -19,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

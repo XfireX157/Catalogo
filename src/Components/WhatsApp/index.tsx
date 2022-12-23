@@ -7,7 +7,7 @@ export default function WhatsApp() {
     const Open = useContext(WhatsAppContext)
     return (
         <div className={styles.WhatsApp}>
-            <button title='Botão do WhatsApp'    onClick={() => Open?.openWhatsApp()} type='button'><AiOutlineWhatsApp /></button>
+            <button title='Botão do WhatsApp' onClick={() => Open?.openWhatsApp()} type='button'><AiOutlineWhatsApp /></button>
         </div>
     )
 }

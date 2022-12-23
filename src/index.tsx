@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './Pages/Home/App';
 import './Styles/stylesGlobal.scss'
 import { WhatsAppProvider } from './Common/WhatsApp.d';
+import RouterDOM from './Router';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <WhatsAppProvider>
-      <App />
+      <RouterDOM />
     </WhatsAppProvider>
   </React.StrictMode>
 );

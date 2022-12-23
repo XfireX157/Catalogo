@@ -1,27 +1,39 @@
 import styles from './Select.module.scss'
-import {IoIosArrowDown} from 'react-icons/io'
+import { ISelects, CardsMock } from '../../Mock/Cards'
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
+import { useState } from 'react'
+import Cards from './Cards'
 
 export default function Select() {
-  return (
-    <section className={styles.SelectMenu}>
-      <div className={styles.SelectMenu__btn}>
-        <span>Select you option</span>
-        <i><IoIosArrowDown/></i>
-      </div>
 
-      <ul className={styles.SelectMenu__options}>
-        <li className={styles.SelectMenu__options__option}>
-          <img src="Assets/img/Pinus_cm.png" alt="Chapa de madeira, tipo pinus" />
-          <article className={styles.SelectMenu__options__option__info}>
-            <h2> <strong>01</strong> Pinus de Madeira</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p>
-            <div  className={styles.SelectMenu__options__option__info__Buy}>
-              <span>R$32,00</span>
-              <button>Comprar agora</button>
+  const [active, setActive] = useState<boolean | object | null | string | number>(null)
+
+  const filtered = (category: ISelects) => {
+    if (active !== category.products) {
+      setActive(category.products!)
+    } else {
+      setActive(null)
+    }
+  }
+
+  const filterCards = active ? CardsMock.filter((item) => item.products === active) : CardsMock
+
+  return (
+    <>
+      <section className={styles.SelectMenu} id="products">
+        {filterCards.map((item) => (
+          <>
+            <div
+              onClick={() => filtered(item)}
+              className={active === item.products ? styles.SelectMenu__btnActive : styles.SelectMenu__btn}
+              key={item.id}>
+              <span>{item.text}</span>
+              {active === item.products ? <MdKeyboardArrowDown size={35} /> : <MdKeyboardArrowUp size={35} />}
             </div>
-          </article>
-        </li>
-      </ul>
-    </section>
+            {active && <Cards styles={styles} itens={item.products!} />}
+          </>
+        ))}
+      </section>
+    </>
   )
 }
