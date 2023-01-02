@@ -1,0 +1,20 @@
+.ZoomImg {
+    position: relative;
+    cursor: none;
+    overflow: hidden;
+
+    img {
+        width: 225px;
+    }
+
+    &__magnify {
+        position: absolute;
+        border: 2px solid #FFF;
+        background: no-repeat;
+        width: 60px;
+        height: 60px;
+        background-size: 800%;
+        background-position: center;
+        pointer-events: none;
+    }
+}
