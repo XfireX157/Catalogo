@@ -1,14 +1,15 @@
 import styles from './Modal_Card.module.scss'
 import { Modal_Cards } from '../../Mock/Modal_Cards'
+import ZoomImg from '../ZoomImg'
 
 interface IModal_Card {
   itens: Modal_Cards[]
-  setActive: React.Dispatch<React.SetStateAction<number | null>>
+  setActive: React.Dispatch<React.SetStateAction<string | number | null>>
 }
 
 export default function Modal_Card({ itens, setActive }: IModal_Card) {
   return (
-    <div className={styles.ModalCard} onClick={() => setActive(null) }>
+    <div className={styles.ModalCard} onClick={() => setActive(null)}>
       <div className={styles.ModalCard__Card}>
         <div className={styles.ModalCard__Card__Object}>
           {itens.map((item) => (
@@ -23,7 +24,7 @@ export default function Modal_Card({ itens, setActive }: IModal_Card) {
                   <p> {item.top_step.info_02} </p>
                 </div>
               </div>
-              <img src="Assets/img/Pinus_cm.png" alt="Chapa de madeira, tipo pinus" />
+              <ZoomImg src={item.img} alt='Imagem do produto'/> 
               <div className={styles.ModalCard__Card__Object__Info}>
                 <div className={styles.ModalCard__Card__Object__Info__Step}>
                   <span> {item.bottom_step.num_03} </span>
@@ -41,3 +42,4 @@ export default function Modal_Card({ itens, setActive }: IModal_Card) {
     </div>
   )
 }
+

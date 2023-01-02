@@ -40,9 +40,8 @@
     &__options {
         background-color: #8DB02E;
         padding: 12px;
-        
-
         &__option {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -52,7 +51,7 @@
             padding: 12px;
             box-sizing: border-box;
             margin-top: 18px;
-           
+
 
             img {
                 width: 180px;

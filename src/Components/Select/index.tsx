@@ -9,14 +9,14 @@ export default function Select() {
   const [active, setActive] = useState<boolean | object | null | string | number>(null)
 
   const filtered = (category: ISelects) => {
-    if (active !== category.products) {
-      setActive(category.products!)
+
+    if (active !== category.id) {
+      setActive(category.id!)
     } else {
       setActive(null)
     }
   }
-
-  const filterCards = active ? CardsMock.filter((item) => item.products === active) : CardsMock
+  const filterCards = active ? CardsMock.filter((item) => item.id === active) : CardsMock
 
   return (
     <>
@@ -25,10 +25,10 @@ export default function Select() {
           <>
             <div
               onClick={() => filtered(item)}
-              className={active === item.products ? styles.SelectMenu__btnActive : styles.SelectMenu__btn}
+              className={active === item.id ? styles.SelectMenu__btnActive : styles.SelectMenu__btn}
               key={item.id}>
               <span>{item.text}</span>
-              {active === item.products ? <MdKeyboardArrowDown size={35} /> : <MdKeyboardArrowUp size={35} />}
+              {active === item.id ? <MdKeyboardArrowDown size={35} /> : <MdKeyboardArrowUp size={35} />}
             </div>
             {active && <Cards styles={styles} itens={item.products!} />}
           </>
