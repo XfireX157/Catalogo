@@ -1,0 +1,52 @@
+.Container {
+    position: relative;
+    padding: 4px;
+
+    &__BoxImg {
+        position: relative;
+        width: 90%;
+        margin: auto;
+        height: 200px;
+
+        &__img1 {
+            position: absolute;
+            width: 100%;
+            height: 200px;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+
+        &__img2 {
+            position: absolute;
+            width: 100%;
+            height: 200px;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+    }
+}
+
+.boxTransition {
+    position: absolute;
+    width: 0;
+    height: 100%;
+
+    &__path {
+        position: absolute;
+        width: 5px;
+        height: 200px;
+        background-color: rgb(247, 247, 247);
+
+
+        &__ball {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            bottom: 45%;
+            left: -10px;
+            border-radius: 50%;
+            background-color: rgb(244, 244, 244);
+
+        }
+    }
+}
