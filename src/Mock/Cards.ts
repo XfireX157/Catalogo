@@ -40,11 +40,10 @@ export const CardsMock: ISelects[] = [
                 title: "Chapa plastificada",
                 img: "Assets/img/Madeirit_cm.png",
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has",
-                price: 32,
+                price: 32.20,
             }
         ]
     },
-
     {
         id: 2,
         text: "Forro",
@@ -58,7 +57,6 @@ export const CardsMock: ISelects[] = [
             }
         ]
     },
-
     {
         id: 3,
         text: "Polisten",
@@ -72,7 +70,6 @@ export const CardsMock: ISelects[] = [
             }
         ]
     },
-
     {
         id: 4,
         text: "Porta",

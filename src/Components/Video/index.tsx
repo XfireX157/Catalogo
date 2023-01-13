@@ -12,7 +12,6 @@ export default function Video() {
     <div className={styles.Video}>
       <div className={styles.Video__text}>
         <h1>MADEIRAS EM GERAL</h1>
-       
           <HashLink to={`/#products`}>
             <p>Comece</p>
             <MdKeyboardArrowDown size={45} />
