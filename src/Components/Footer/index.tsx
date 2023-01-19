@@ -9,7 +9,7 @@ export default function Footer() {
         <span> <a title='Link instagram' href="https://www.instagram.com/madeibras/"> <AiFillInstagram/> </a></span>
         <span> <a title='Link facebook' href="https://www.facebook.com/madeibras"><AiFillFacebook/> </a></span>
       </div>
-      <p>Filtro All Rights Reserved</p>
+      <p><del>Filtro All Rights Reserved</del> </p>
     </div>
   )
 }

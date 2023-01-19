@@ -7,7 +7,7 @@ interface IZoomImg {
 }
 
 export default function ZoomImg({alt, src}: IZoomImg) {
-    
+
     const [magnifyStyle, setMagnifyStyle] = useState({ backgroundImage: `url(${src})` })
     const handleMoveMagnify = (e: any): void => {
         const { offsetX, offsetY, target } = e.nativeEvent

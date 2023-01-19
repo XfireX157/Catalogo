@@ -11,6 +11,8 @@
         object-fit: cover;
         margin-bottom: 1.75rem;
         filter: brightness(50%);
+        clip-path: polygon(0 0, 100% 0%, 100% 96%, 50% 100%, 0 96%);
+        border-radius: 20px;
     }
 
     &__text {
