@@ -1,0 +1,23 @@
+.Form {
+    position: fixed;
+    width: 80%;
+    height: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    box-sizing: border-box;
+    background-color: #e8e8e8;
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 2;
+
+    box-shadow: 2px 2px 45px 8px rgb(33, 32, 32);
+
+    span {
+        font-weight: 500;
+        padding-left: 10px;
+    }
+}
