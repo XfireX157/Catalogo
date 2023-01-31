@@ -17,7 +17,7 @@ export default function Input({
       value={value}
       placeholder={placeholder}
       name={name}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => onChange(e)}
     />
   );
 }

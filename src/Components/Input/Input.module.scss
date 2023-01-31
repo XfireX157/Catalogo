@@ -1,9 +1,8 @@
 .Input {
-    height: 100%;
     background-color: #edf0e8;
     color: rgb(34, 33, 33);
     border-radius: 6px;
-    padding: 0px 12px;
+    padding: 9px;
     box-shadow: 2px 4px  rgb(60, 59, 59);
     cursor: text;
     &::placeholder {
@@ -22,5 +21,9 @@
             color: #fff;
         }
     }
-    
+
+    &[type="file"]{
+        width: 100%;
+        display: none;
+    }
 }

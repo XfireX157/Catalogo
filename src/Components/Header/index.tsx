@@ -1,6 +1,5 @@
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useState } from 'react'
-import { CardsMock } from '../../Mock/Cards'
 import styles from './Header.module.scss'
 import Modal_Header from './Modal_Header'
 
@@ -13,15 +12,15 @@ export default function Header() {
 
     const searchBar = () => {
         if (!search) return []
-        else {
-            return CardsMock.filter((item) =>
-                item.text
-                    .toLocaleLowerCase()
-                    .normalize('NFD')
-                    .replace(/[^a-zA-Zs]/g, "")
-                    .includes(search)
-            )
-        }
+        // else {
+        //     return CardsMock.filter((item) =>
+        //         item.text
+        //             .toLocaleLowerCase()
+        //             .normalize('NFD')
+        //             .replace(/[^a-zA-Zs]/g, "")
+        //             .includes(search)
+        //     )
+        // }
     }
     return (
         <>

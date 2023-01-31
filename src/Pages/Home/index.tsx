@@ -7,6 +7,7 @@ import Header from "../../Components/Header";
 import Select from "../../Components/Select";
 import Video from "../../Components/Video";
 import WhatsApp from "../../Components/WhatsApp";
+import token from "../../http/Token";
 
 function Home() {
 
@@ -18,7 +19,7 @@ function Home() {
         <Header />
         <Video />
         <Select />
-        {active && <Form/>}
+        {active && <Form setActive={setActive}/>}
         <Footer />
       </div>
       <ButtonAdding onClick={() => setActive(!active)} />

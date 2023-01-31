@@ -1,22 +1,23 @@
-import { IProducts } from "../../../Mock/Cards";
 import { useState } from "react";
 import { useContext } from "react";
 import { WhatsAppContext } from "../../../Common/WhatsApp.d";
 import { Modal_Cards } from "../../../Mock/Modal_Cards";
 import Modal_Card from "../../../Components/Modal_Card";
+import { IProducts } from "../../../Types/IProducts";
 
 interface ICards {
   itens: IProducts[];
+  url: string
   styles: {
     readonly [styles: string]: string;
   };
 }
 
-export default function Cards({ styles, itens }: ICards) {
+export default function Cards({ styles, itens, url }: ICards) {
   const [active, setActive] = useState<string | number | null>(null);
   const FilterCard = (item: IProducts) => {
-    if (active !== item.id!) {
-      setActive(item.id);
+    if (active !== item._id!) {
+      setActive(item._id);
     } else {
       setActive(null);
     }
@@ -30,16 +31,16 @@ export default function Cards({ styles, itens }: ICards) {
     <>
       <ul className={styles.SelectMenu__options}>
         {itens.map((item) => (
-          <li key={item.id} className={styles.SelectMenu__options__option}>
+          <li key={item._id} className={styles.SelectMenu__options__option}>
             <img
-              src={item.img}
+              src={url + item.filename}
               alt="Chapa de madeira, tipo pinus"
               onClick={() => FilterCard(item)}
               draggable="false"
             />
             <article className={styles.SelectMenu__options__option__info}>
               <h2>
-                <strong>{item.id}</strong> {item.title}
+                <strong>{item._id}</strong> {item.title}
               </h2>
               <p>{item.description} </p>
               <div className={styles.SelectMenu__options__option__info__Buy}>
@@ -49,8 +50,8 @@ export default function Cards({ styles, itens }: ICards) {
                   }>
                   <p>{item.category} </p>
                   <div className={styles.SelectMenu__options__option__info__Buy__price__discount}>
-                    <span>R$ {item.price.toFixed(2).replace(".", ",")} </span>
-                    <p>R$ {item.discount?.toFixed(2).replace(".", ",")}</p>
+                    <span>R$ {item.price} </span>
+                    {item.discount === 0 ? null : <p>R$ {item.discount}</p>}
                   </div>
                 </div>
                 <button type="button" onClick={() => Open?.openWhatsApp()}>

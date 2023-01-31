@@ -43,19 +43,19 @@
                 span{
                     color: #fff;
                     background-color: rgb(26, 24, 24, 0.9);
-                    border-radius: 50%;
                     height: 22px;
                     width: 22px;
                     font-size: 0.6rem;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    margin: 8px;
                 }
 
                 &__Step{
-                    padding: 12px;
                     display: flex;
                     justify-content: center;
+                    align-items: center;
                 }
             }
         }
