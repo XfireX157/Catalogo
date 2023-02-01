@@ -2,15 +2,33 @@ import Button from "../Button";
 import Input from "../Input";
 import Label from "../Label";
 import styles from "./Form.module.scss";
-import http from '../../http/interceptors'
+import http from "../../http/interceptors";
 import { IoIosAdd } from "react-icons/io";
 import { useState } from "react";
+import { IProducts } from "../../Types/IProducts";
+import { ICategory } from "../../Types/ICategory";
 
 interface IForm {
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  active: {
+    formCategory: boolean;
+    formAdd: boolean;
+    modal: boolean;
+    type: string
+  };
+  setActive: React.Dispatch<
+    React.SetStateAction<{
+      formCategory: boolean;
+      formAdd: boolean;
+      modal: boolean;
+      type: string
+    }>
+  >;
+  edit: any
+  setItemsList: (newItem: IProducts) => void
+  categoryMap: ICategory[]
 }
 
-export default function Form({ setActive }: IForm) {
+export default function Form({ setActive, active, setItemsList, edit, categoryMap }: IForm) {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -30,27 +48,46 @@ export default function Form({ setActive }: IForm) {
     formData.append("discount", discount);
     formData.append("category", category);
 
-    if(!image.length) {
-      console.log('adicione uma imagem antes')
+    if (!image.length) {
+      console.log("adicione uma imagem antes");
     }
 
-    await http.post('/Create', formData)
+    if(edit){
+      await http.patch(`/Update/${edit.id}`, formData)
       .then((response) => {
         console.log(response)
-      })
-      .catch((err: any) => {
+        setActive({...active, formAdd: false})
+      }).catch((err: any) => {
         console.log(err)
       })
+    }else {
+      await http
+      .post("/Create", formData)
+      .then((response) => {
+        console.log(response);
+        setItemsList({category, description, filename: image, price, title, discount})
+        setActive({...active, formAdd: false})
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+    }
   };
 
   return (
     <>
-      <div className={styles.CloseForm} onClick={() => setActive(false)} />
+      <div
+        className={styles.CloseForm}
+        onClick={() => setActive({ ...active, formAdd: false })}
+      />
       <form
         onSubmit={handleSubmit}
         className={styles.CloseForm__Form}
         encType="multipart/form-data"
       >
+        <div>
+          {active.type === "Adicionar um novo card" ? <p> {active.type} </p> : <p>{active.type}</p>}
+        </div>
         <Label id="title">
           <span>Title: </span>
           <Input
@@ -77,14 +114,15 @@ export default function Form({ setActive }: IForm) {
 
         <Label id="category">
           <span>Category: </span>
-          <Input
+          <select 
+            name="category" 
             id="category"
-            type="text"
-            placeholder="Category"
-            value={category}
-            onChange={(e: any) => setCategory(e.target.value)}
-            name="category"
-          />
+            onChange={(e) => setCategory(e.target.value)}>
+            <option></option>
+              {categoryMap.map(item => (
+                <option key={item._id}>{item.categoryName}</option>
+              ))}
+          </select>
         </Label>
 
         <Label id="price">

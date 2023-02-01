@@ -61,6 +61,25 @@
             box-sizing: border-box;
             margin-top: 18px;
 
+            &__close{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background-color: rgb(210, 30, 30);
+                color: #fff;
+                padding: 4px 7.5px;
+                border-radius: 50%;
+            }
+
+            &__edit {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                background-color: #5ab620;
+                color: #fff;
+                padding: 4px 7.5px;
+                border-radius: 50%;
+            }
 
             img {
                 width: 180px;
@@ -77,6 +96,8 @@
             }
 
             &__info {
+                width: 100%;
+
                 p {
                     font-size: 0.8rem;
                     margin: 12px 0;

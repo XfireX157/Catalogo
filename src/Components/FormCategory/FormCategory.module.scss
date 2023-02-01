@@ -1,0 +1,34 @@
+.CloseForm{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background-color: rgb(33, 32, 32, 0.5);
+    z-index: 5;
+
+    &__Form {
+        position: fixed;
+        width: 80%;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        background-color: #e8e8e8;
+        padding: 12px;
+        border-radius: 8px;
+        z-index: 2;
+        font-family: 'Poppins';
+        box-shadow: 2px 2px 45px 8px rgb(33, 32, 32);
+        z-index: 6;
+    
+        span {
+            font-weight: 500;
+            padding-left: 10px;
+            font-size: 0.8rem;
+        }
+    }
+}
+

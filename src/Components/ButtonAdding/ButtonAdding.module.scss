@@ -1,4 +1,4 @@
-.ButtonAdding{
+.ButtonAdding {
     position: fixed;
     color: #FFF;
     background-color: #6ff71b;
@@ -10,6 +10,40 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    z-index: 4;
 
-    z-index: 5;
+    &__modal {
+        position: fixed;
+        width: 120px;
+        height: auto;
+        border-radius: 6px;
+        bottom: 15%;
+        right: 0%;
+        background-color: #6ff71b;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        font-size: 1rem;
+        font-weight: 600;
+        z-index: 4;
+
+        &__list {
+            padding: 0 0.7rem 0 0.7rem;
+
+            &__listColum {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                color: #F9F9F9;
+                padding: 8px 0 8px 0;
+                cursor: pointer;
+    
+                &__icon {
+                    margin-right: 8px;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
 }

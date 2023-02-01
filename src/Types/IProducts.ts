@@ -1,9 +1,9 @@
 export interface IProducts {
-    _id: string
+    id?: string
     filename: string
     title: string
     description: string
-    price: number
-    discount?: number
+    price:  string
+    discount?: string
     category: string
 }
