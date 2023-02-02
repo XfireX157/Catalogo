@@ -1,15 +1,17 @@
-import styles from './Select.module.scss'
 import { useEffect, useState } from 'react'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 import { ICategory } from '../../Types/ICategory'
 import { IProducts } from '../../Types/IProducts'
+import { AiOutlineEdit } from 'react-icons/ai'
 import Cards from './Cards'
-import axios from 'axios'
+import styles from './Select.module.scss'
 import http from '../../http/interceptors'
+import token from '../../http/Token'
+
 
 interface ISelect {
   categoryMap: ICategory[]
-  setCategory: React.Dispatch<React.SetStateAction<ICategory[]>>
+  setCategoryMap: React.Dispatch<React.SetStateAction<ICategory[]>>
   items: IProducts[]
   setItems: React.Dispatch<React.SetStateAction<IProducts[]>>
   active: {
@@ -28,9 +30,10 @@ interface ISelect {
     }>
   >;
   setEdit: React.Dispatch<React.SetStateAction<string>>
+  setEditCategory: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function Select({categoryMap, setCategory, items, setItems, setEdit, active, setActive}: ISelect) {
+export default function Select({categoryMap, setCategoryMap, items, setItems, setEdit, active, setActive, setEditCategory}: ISelect) {
 
   const [open, setOpen] = useState<boolean | object | null | string | number>(null)
   const [url, setUrl] = useState('')
@@ -43,7 +46,20 @@ export default function Select({categoryMap, setCategory, items, setItems, setEd
 
   const getCategory = async () => {
     const res = await http.get("/CategoryGetAll")
-    setCategory(res.data.results)
+    setCategoryMap(res.data.results)
+  }
+
+  const deleteCategory = async (id: string) => {
+    await http.delete(`/CategoryDelete/${id}`)
+      .then(() => {
+        setCategoryMap(categoryMap.filter((item) => item._id !== id))
+        window.location.reload()
+      }).catch((err: any) => console.log(err))
+  }
+
+  const updateCategory = async (item: any) => {
+    setActive({...active, formCategory: true})
+    setEditCategory(item)
   }
 
   useEffect(() => {
@@ -70,6 +86,8 @@ export default function Select({categoryMap, setCategory, items, setItems, setEd
               key={item._id}
               onClick={() => filtered(item)}
               className={open === item.categoryName ? styles.SelectMenu__btnActive : styles.SelectMenu__btn}>
+              {token !== null &&<span className={styles.SelectMenu__closeCategory} onClick={() => deleteCategory(item._id!)}>X</span>}
+              {token !== null &&<span className={styles.SelectMenu__editCategory} onClick={() => updateCategory({...item})}><AiOutlineEdit /></span>}
               <div className={styles.SelectMenu__btn__info}>
                 <span>{item.categoryName}</span>
               </div>

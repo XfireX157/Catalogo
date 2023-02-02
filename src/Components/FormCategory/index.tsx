@@ -13,7 +13,6 @@ interface IForm {
     modal: boolean;
     type: string
   };
-
   setActive: React.Dispatch<
     React.SetStateAction<{
       formCategory: boolean;
@@ -22,17 +21,25 @@ interface IForm {
       type: string
     }>
   >;
-
   setCategoryList: (newCategory: ICategory) => void
+  editCategory: any
 }
 
-export default function FormCategory({ setActive, active, setCategoryList }: IForm) {
+export default function FormCategory({ setActive, active, setCategoryList, editCategory }: IForm) {
   const [categoryName, setCategoryName] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await http
+    if(editCategory) {
+      await http.patch(`/CategoryUpdate/${editCategory._id}`, {
+        categoryName: categoryName
+      }).then((response) => {
+        console.log(response)
+        setActive({...active, formCategory: false})
+      }).catch((err: any) => console.log(err))
+    }else {
+      await http
       .post("/CategoryCreate", {
         categoryName: categoryName,
       })
@@ -44,6 +51,7 @@ export default function FormCategory({ setActive, active, setCategoryList }: IFo
       .catch((err: any) => {
         console.log(err);
       });
+    }
   };
 
   return (

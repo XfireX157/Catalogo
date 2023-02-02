@@ -13,33 +13,60 @@ import { ICategory } from "../../../Types/ICategory";
 import { IProducts } from "../../../Types/IProducts";
 
 function Home() {
-
-  const [categoryMap, setCategory] = useState<ICategory[]>([])
-  const [items, setItems] = useState<IProducts[]>([])
-  const [edit, setEdit] = useState('')
+  const [categoryMap, setCategoryMap] = useState<ICategory[]>([]);
+  const [items, setItems] = useState<IProducts[]>([]);
+  const [edit, setEdit] = useState("");
+  const [editCategory, setEditCategory] = useState("");
   const [active, setActive] = useState({
     formCategory: false,
     formAdd: false,
     modal: false,
-    type: ""
-  })
+    type: "",
+  });
 
   const setCategoryList = (newCategory: ICategory) => {
-    setCategory([...categoryMap, {...newCategory}])
-  }
+    setCategoryMap([...categoryMap, { ...newCategory }]);
+  };
 
   const setItemsList = (newItem: IProducts) => {
-    setItems([...items, newItem])
-  }
+    setItems([...items, newItem]);
+  };
 
   return (
     <div>
       <div>
         <Header />
         <Video />
-        <Select categoryMap={categoryMap} setCategory={setCategory} items={items} setItems={setItems} setActive={setActive} active={active} setEdit={setEdit} />
-        {active.formAdd && <Form setActive={setActive} active={active} setItemsList={setItemsList} edit={edit} categoryMap={categoryMap} />}
-        {active.formCategory && <FormCategory setActive={setActive} active={active} setCategoryList={setCategoryList}  />}
+        <Select
+          categoryMap={categoryMap}
+          setCategoryMap={setCategoryMap}
+          items={items}
+          setItems={setItems}
+          setActive={setActive}
+          active={active}
+          setEdit={setEdit}
+          setEditCategory={setEditCategory}
+        />
+        {active.formAdd && (
+          <Form
+            setActive={setActive}
+            active={active}
+            setItemsList={setItemsList}
+            setItems={setItems}
+            items={items}
+            edit={edit}
+            categoryMap={categoryMap}
+            setEdit={setEdit}
+          />
+        )}
+        {active.formCategory && (
+          <FormCategory
+            setActive={setActive}
+            active={active}
+            setCategoryList={setCategoryList}
+            editCategory={editCategory}
+          />
+        )}
         <Footer />
       </div>
       {token !== null && <ButtonAdding setActive={setActive} active={active} />}

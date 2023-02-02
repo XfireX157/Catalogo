@@ -14,7 +14,7 @@
 
     &__modal {
         position: fixed;
-        width: 120px;
+        width: 115px;
         height: auto;
         border-radius: 6px;
         bottom: 15%;
@@ -39,9 +39,13 @@
                 cursor: pointer;
     
                 &__icon {
-                    margin-right: 8px;
+                    padding-right: 4px;
                     display: flex;
                     align-items: center;
+                }
+
+                span{
+                    text-align: center;
                 }
             }
         }

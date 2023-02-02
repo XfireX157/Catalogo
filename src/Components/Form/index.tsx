@@ -24,11 +24,14 @@ interface IForm {
     }>
   >;
   edit: any
+  setEdit: React.Dispatch<React.SetStateAction<string>>
   setItemsList: (newItem: IProducts) => void
   categoryMap: ICategory[]
+  items: IProducts[]
+  setItems: React.Dispatch<React.SetStateAction<IProducts[]>>
 }
 
-export default function Form({ setActive, active, setItemsList, edit, categoryMap }: IForm) {
+export default function Form({ setActive, active, setItemsList, edit, setEdit ,categoryMap, items, setItems }: IForm) {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -36,6 +39,14 @@ export default function Form({ setActive, active, setItemsList, edit, categoryMa
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
   const [image, setImage] = useState<any>("");
+
+  const [types, setTypes] = useState({
+    imageError: '',
+    categoryError: '',
+    titleError: '',
+    descriptionError: '',
+    priceError: ''
+  })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,14 +59,17 @@ export default function Form({ setActive, active, setItemsList, edit, categoryMa
     formData.append("discount", discount);
     formData.append("category", category);
 
-    if (!image.length) {
-      console.log("adicione uma imagem antes");
-    }
-
+    if(!image.length) setTypes({...types, imageError: "adicione uma imagem antes", titleError: "", descriptionError: "", categoryError: "", priceError: ""});
+    if(!price.length)setTypes({...types, priceError: "adicione um preço" , titleError: "",  descriptionError: "", categoryError: ""});
+    if(category === 'Categoria' || !category.length)setTypes({...types, categoryError: "adicione uma categoria antes", titleError: "", descriptionError: ""});
+    if(!description.length)setTypes({...types, descriptionError: "adicione uma descrição" , titleError: ""});
+    if(!title.length)setTypes({...types, titleError: "adicione um titulo"});
+    
     if(edit){
       await http.patch(`/Update/${edit.id}`, formData)
       .then((response) => {
         console.log(response)
+        setItems(items.map((item: any, index: any) => edit.id === index ? response.data.results : item))
         setActive({...active, formAdd: false})
       }).catch((err: any) => {
         console.log(err)
@@ -72,6 +86,8 @@ export default function Form({ setActive, active, setItemsList, edit, categoryMa
         console.log(err);
       });
     }
+
+    setEdit('')
   };
 
   return (
@@ -83,66 +99,61 @@ export default function Form({ setActive, active, setItemsList, edit, categoryMa
       <form
         onSubmit={handleSubmit}
         className={styles.CloseForm__Form}
-        encType="multipart/form-data"
-      >
+        encType="multipart/form-data">
         <div>
           {active.type === "Adicionar um novo card" ? <p> {active.type} </p> : <p>{active.type}</p>}
         </div>
         <Label id="title">
-          <span>Title: </span>
           <Input
             id="title"
             type="text"
-            placeholder="Title"
+            placeholder="Título"
             value={title}
             onChange={(e: any) => setTitle(e.target.value)}
             name="title"
           />
+          <p className={styles.CloseForm__Form__error}> {types.titleError} </p>
         </Label>
-
         <Label id="description">
-          <span>Description: </span>
           <Input
             id="description"
             type="text"
-            placeholder="Description"
+            placeholder="Descrição"
             value={description}
             onChange={(e: any) => setDescription(e.target.value)}
             name="description"
           />
+           <p className={styles.CloseForm__Form__error}> {types.descriptionError} </p>
         </Label>
-
         <Label id="category">
-          <span>Category: </span>
           <select 
+            className={styles.CloseForm__Form__select}
             name="category" 
             id="category"
             onChange={(e) => setCategory(e.target.value)}>
-            <option></option>
+            <option>Categoria</option>
               {categoryMap.map(item => (
                 <option key={item._id}>{item.categoryName}</option>
               ))}
           </select>
+          <p className={styles.CloseForm__Form__error}>{types.categoryError}</p>
         </Label>
-
         <Label id="price">
-          <span>Price: </span>
           <Input
             id="price"
             type="text"
-            placeholder="Price"
+            placeholder="Preço"
             value={price}
             onChange={(e: any) => setPrice(e.target.value)}
             name="price"
           />
+          <p className={styles.CloseForm__Form__error}>{types.priceError}</p>
         </Label>
-
         <Label id="discount">
-          <span>Discount: </span>
           <Input
             id="discount"
             type="text"
-            placeholder="Discount"
+            placeholder="Desconto"
             value={discount}
             onChange={(e: any) => setDiscount(e.target.value)}
             name="discount"
@@ -172,6 +183,7 @@ export default function Form({ setActive, active, setItemsList, edit, categoryMa
             name="file"
           />
         </Label>
+        <p className={styles.CloseForm__Form__error}> {types.imageError} </p>
         <Button type="submit">Enviar</Button>
       </form>
     </>

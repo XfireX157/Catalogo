@@ -1,4 +1,4 @@
-.CloseForm{
+.CloseForm {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -23,12 +23,32 @@
         font-family: 'Poppins';
         box-shadow: 2px 2px 45px 8px rgb(33, 32, 32);
         z-index: 6;
-    
-        span {
-            font-weight: 500;
-            padding-left: 10px;
-            font-size: 0.8rem;
+
+        &__error{
+            color: rgb(209, 44, 44);
+        }
+
+        &__select {
+            background-color: #edf0e8;
+            color: rgb(47, 44, 44, 0.5);
+            border-radius: 6px;
+            padding: 9px;
+            font-weight: 600;
+            box-shadow: 2px 4px rgb(60, 59, 59);
+            margin-top: 10px;
+            font-family: 'Poppins';
+            cursor: text;
+                
+            &:focus {
+                background-color: #8baf22;
+                color: #fff;
+                transition: all 0.2s ease-in-out;
+                box-shadow: 3px 4px #1d2604;
+        
+                &::placeholder{
+                    color: #fff;
+                }
+            }
         }
     }
 }
-
