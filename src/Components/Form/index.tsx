@@ -28,7 +28,6 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
   const [image, setImage] = useState<any>("");
-
   const [types, setTypes] = useState({
     imageError: '',
     categoryError: '',
@@ -48,8 +47,6 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
     formData.append("discount", discount);
     formData.append("category", category);
 
-  
-    
     if(edit.id){
       await http.patch(`/Update/${edit.id}`, formData)
       .then((response) => {
@@ -65,7 +62,7 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
       if(category === 'Categoria' || !category.length)setTypes({...types, categoryError: "adicione uma categoria antes", titleError: "", descriptionError: ""});
       if(!description.length)setTypes({...types, descriptionError: "adicione uma descrição" , titleError: ""});
       if(!title.length)setTypes({...types, titleError: "adicione um titulo"});
-      
+
       else {
         await http.post("/Create", formData)
         .then((response) => {
