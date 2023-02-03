@@ -5,22 +5,11 @@ import styles from "./FormCategory.module.scss";
 import http from "../../http/interceptors";
 import { useState } from "react";
 import { ICategory } from "../../Types/ICategory";
+import { active, setActive } from "../../Types/IActive";
 
 interface IForm {
-  active: {
-    formCategory: boolean;
-    formAdd: boolean;
-    modal: boolean;
-    type: string
-  };
-  setActive: React.Dispatch<
-    React.SetStateAction<{
-      formCategory: boolean;
-      formAdd: boolean;
-      modal: boolean;
-      type: string
-    }>
-  >;
+  active: active;
+  setActive: React.Dispatch<React.SetStateAction<setActive>>;
   setCategoryList: (newCategory: ICategory) => void
   editCategory: any
 }
@@ -58,13 +47,14 @@ export default function FormCategory({ setActive, active, setCategoryList, editC
     <>
       <div
         className={styles.CloseForm}
-        onClick={() => setActive({ ...active, formCategory: false })}
-      />
+        onClick={() => setActive({ ...active, formCategory: false })}/>
       <form
         onSubmit={handleSubmit}
         className={styles.CloseForm__Form}
-        encType="multipart/form-data"
-      >
+        encType="multipart/form-data">
+
+        {active.type === true ? <p> Adicionar uma categoria </p> : <p>Editar uma categoria</p>}
+
         <Label id="category">
           <span>Category: </span>
           <Input

@@ -59,6 +59,7 @@
     }
 
     &__btnActive {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -68,6 +69,30 @@
         background-color: #8DB02E;
         cursor: pointer;
         margin-top: 28px;
+
+        &__closeCategory{
+            position: absolute;
+            right: -5px;
+            top: -5px;
+            padding: 2px 4px;
+            border-radius: 50%;
+            background-color: red;
+            font-size: 0.7rem;
+            color: #fff;
+            z-index: 3;
+        }
+    
+        &__editCategory{
+            position: absolute;
+            left: -5px;
+            top: -5px;
+            padding: 2px 4px;
+            border-radius: 50%;
+            background-color: #5ab620;
+            font-size: 0.7rem;
+            color: #fff;
+            z-index: 3;
+        }
     }
 
     &__options {

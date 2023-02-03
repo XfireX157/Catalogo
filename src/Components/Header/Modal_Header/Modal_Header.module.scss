@@ -4,9 +4,8 @@
     height: 350px;
     background-color: rgb(141, 176, 46, 0.9);
     top: 72px;
-    z-index: 2;
+    z-index: 10;
     overflow-y: auto;
-    
     flex-direction: column;
 
     &__items {

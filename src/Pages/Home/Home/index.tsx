@@ -15,13 +15,13 @@ import { IProducts } from "../../../Types/IProducts";
 function Home() {
   const [categoryMap, setCategoryMap] = useState<ICategory[]>([]);
   const [items, setItems] = useState<IProducts[]>([]);
-  const [edit, setEdit] = useState("");
+  const [edit, setEdit] = useState<IProducts>({id: '', category: '', description: '', filename: '', price: '', title: '', discount: ''});
   const [editCategory, setEditCategory] = useState("");
   const [active, setActive] = useState({
     formCategory: false,
     formAdd: false,
     modal: false,
-    type: "",
+    type: false,
   });
 
   const setCategoryList = (newCategory: ICategory) => {

@@ -7,6 +7,7 @@ import Cards from './Cards'
 import styles from './Select.module.scss'
 import http from '../../http/interceptors'
 import token from '../../http/Token'
+import { active, setActive } from '../../Types/IActive'
 
 
 interface ISelect {
@@ -14,22 +15,9 @@ interface ISelect {
   setCategoryMap: React.Dispatch<React.SetStateAction<ICategory[]>>
   items: IProducts[]
   setItems: React.Dispatch<React.SetStateAction<IProducts[]>>
-  active: {
-    formCategory: boolean;
-    formAdd: boolean;
-    modal: boolean;
-    type: string
-  };
-
-  setActive: React.Dispatch<
-    React.SetStateAction<{
-      formCategory: boolean;
-      formAdd: boolean;
-      modal: boolean;
-      type: string
-    }>
-  >;
-  setEdit: React.Dispatch<React.SetStateAction<string>>
+  active: active;
+  setActive: React.Dispatch<React.SetStateAction<setActive>>;
+  setEdit: React.Dispatch<React.SetStateAction<IProducts>>
   setEditCategory: React.Dispatch<React.SetStateAction<string>>
 }
 
@@ -58,7 +46,7 @@ export default function Select({categoryMap, setCategoryMap, items, setItems, se
   }
 
   const updateCategory = async (item: any) => {
-    setActive({...active, formCategory: true})
+    setActive({...active, formCategory: true, type: false})
     setEditCategory(item)
   }
 

@@ -1,23 +1,12 @@
 import { AiFillFolderAdd } from "react-icons/ai";
 import { BsInputCursor, BsPencilSquare } from "react-icons/bs";
 import styles from "./ButtonAdding.module.scss";
+import { active, setActive } from "../../Types/IActive";
 
 interface IAddButton {
   onClick?: () => void;
-  active: {
-    formCategory: boolean;
-    formAdd: boolean;
-    modal: boolean;
-    type: string
-  };
-  setActive: React.Dispatch<
-    React.SetStateAction<{
-      formCategory: boolean;
-      formAdd: boolean;
-      modal: boolean;
-      type: string
-    }>
-  >;
+  active: active
+  setActive: React.Dispatch<React.SetStateAction<setActive>>;
 }
 
 export default function ButtonAdding({ setActive, active }: IAddButton) {
@@ -32,7 +21,7 @@ export default function ButtonAdding({ setActive, active }: IAddButton) {
           formAdd: !active.formAdd,
           formCategory: false,
           modal: false,
-          type: "Adicionar um novo card"
+          type: true
         }),
     },
     {
@@ -45,7 +34,7 @@ export default function ButtonAdding({ setActive, active }: IAddButton) {
           formCategory: !active.formCategory,
           formAdd: false,
           modal: false,
-          type: "Editar o card"
+          type: true
         }),
     },
   ];

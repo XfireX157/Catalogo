@@ -3,35 +3,23 @@ import { useContext } from "react";
 import { WhatsAppContext } from "../../../Common/WhatsApp.d";
 import { Modal_Cards } from "../../../Mock/Modal_Cards";
 import { IProducts } from "../../../Types/IProducts";
+import { AiOutlineEdit } from "react-icons/ai";
+import { active, setActive } from "../../../Types/IActive";
 import Modal_Card from "../../../Components/Modal_Card";
 import http from "../../../http/interceptors";
 import token from "../../../http/Token";
-import { AiOutlineEdit } from "react-icons/ai";
 
 interface ICards {
   itens: IProducts[];
   url: string;
   styles: {
     readonly [styles: string]: string;
-  };
+};
   items: IProducts[];
   setItems: React.Dispatch<React.SetStateAction<IProducts[]>>;
-  setEdit: React.Dispatch<React.SetStateAction<string>>;
-  active: {
-    formCategory: boolean;
-    formAdd: boolean;
-    modal: boolean;
-    type: string
-  };
-
-  setActive: React.Dispatch<
-    React.SetStateAction<{
-      formCategory: boolean;
-      formAdd: boolean;
-      modal: boolean;
-      type: string
-    }>
-  >;
+  setEdit: React.Dispatch<React.SetStateAction<IProducts>>;
+  active: active;
+  setActive: React.Dispatch<React.SetStateAction<setActive>>;
 }
 
 export default function Cards({
@@ -69,8 +57,8 @@ export default function Cards({
       });
   };
 
-  const updateCard = (item: any) => {
-    setActive({...active, formAdd: true})
+  const updateCard = (item: IProducts) => {
+    setActive({...active, formAdd: true, type: false})
     setEdit({...item})
   };
 
