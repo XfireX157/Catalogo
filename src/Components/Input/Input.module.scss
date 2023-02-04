@@ -1,0 +1,30 @@
+.Input {
+    background-color: #edf0e8;
+    color: rgb(34, 33, 33);
+    border-radius: 6px;
+    padding: 9px;
+    box-shadow: 2px 4px  rgb(60, 59, 59);
+    cursor: text;
+    margin-top: 10px;
+    &::placeholder {
+        color: rgb(47, 44, 44, 0.5);
+        font-weight: 600;
+        font-family: 'Poppins';
+    }
+
+    &:focus {
+        background-color: #8baf22;
+        color: #fff;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 3px 4px #1d2604;
+
+        &::placeholder{
+            color: #fff;
+        }
+    }
+
+    &[type="file"]{
+        width: 100%;
+        display: none;
+    }
+}

@@ -1,0 +1,53 @@
+.form{
+    width: 80%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Poppins';
+    
+    legend{
+        font-size: 3rem;
+        font-weight: 600;
+    }
+
+    input[type=submit]{
+        width: 80%;
+        background-color: #352e2e;
+        box-shadow: 4px 4px #ccc;
+        color: #fff;
+        padding: 16px;
+        margin-top: 35px;
+        border-radius: 16px;
+        cursor: pointer;
+        
+        &:hover{
+            transition: all 0.2s ease-in;
+            background-color: #635b5b;
+        }
+    }
+
+    &__Inputs{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+
+        input{
+            padding: 18px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 4px 4px #ccc;
+            margin-top: 8px;
+    
+            &:focus{
+                transition: all 0.3s ease-in;
+                box-shadow: 4px 4px #74c08b;
+            }
+        }
+    }
+}

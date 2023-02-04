@@ -1,0 +1,208 @@
+.SelectMenu {
+    width: 90%;
+    margin: auto;
+    border-radius: 8px 8px 0 0;
+
+    &__closeCategory{
+        position: absolute;
+        right: -5px;
+        top: -5px;
+        padding: 2px 4px;
+        border-radius: 50%;
+        background-color: red;
+        font-size: 0.7rem;
+        color: #fff;
+        z-index: 3;
+    }
+
+    &__editCategory{
+        position: absolute;
+        left: -5px;
+        top: -5px;
+        padding: 2px 4px;
+        border-radius: 50%;
+        background-color: #5ab620;
+        font-size: 0.7rem;
+        color: #fff;
+        z-index: 3;
+    }
+
+    &__btn {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        color: rgb(29, 27, 27);
+        box-shadow: 0px 6px 5px #adadad;
+        background-color: #f8f8f8;
+        cursor: pointer;
+        margin-top: 28px;
+
+        &__info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            span:nth-child(1) {
+                display: flex;
+                align-items: center;
+                font-size: 1.4rem;
+                margin-right: 10px;
+            }
+
+            span {
+                font-size: 1.5rem;
+                font-weight: 600;
+            }
+        }
+    }
+
+    &__btnActive {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        color: rgb(237, 237, 237);
+        box-shadow: 0px 6px 5px #51651a;
+        background-color: #8DB02E;
+        cursor: pointer;
+        margin-top: 28px;
+
+        &__closeCategory{
+            position: absolute;
+            right: -5px;
+            top: -5px;
+            padding: 2px 4px;
+            border-radius: 50%;
+            background-color: red;
+            font-size: 0.7rem;
+            color: #fff;
+            z-index: 3;
+        }
+    
+        &__editCategory{
+            position: absolute;
+            left: -5px;
+            top: -5px;
+            padding: 2px 4px;
+            border-radius: 50%;
+            background-color: #5ab620;
+            font-size: 0.7rem;
+            color: #fff;
+            z-index: 3;
+        }
+    }
+
+    &__options {
+        background-color: #8DB02E;
+        padding: 12px;
+
+        &__option {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #F7F4F4;
+            border-radius: 8px;
+            padding: 12px;
+            box-sizing: border-box;
+            margin-top: 18px;
+
+            &__close{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background-color: rgb(210, 30, 30);
+                color: #fff;
+                padding: 2px 5.5px;
+                border-radius: 50%;
+            }
+
+            &__edit {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                background-color: #5ab620;
+                color: #fff;
+                padding: 2px 4px;
+                border-radius: 50%;
+            }
+
+            img {
+                width: 180px;
+            }
+
+            h2 {
+                font-size: 1.35rem;
+                font-weight: 600;
+                margin: 10px 0;
+            }
+
+            &__info {
+                width: 100%;
+                box-sizing: border-box;
+
+                p {
+                    font-size: 0.8rem;
+                    margin: 12px 0;
+                }
+
+                &__Buy {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: right;
+
+                    &__price {
+                        position: relative;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        p {
+                            font-weight: 600;
+                            font-size: 1rem;
+                        }
+
+                        &__discount {
+                            p {
+                                position: relative;
+                                margin: 5px 0;
+                                font-weight: 400;
+                                
+                                &::before {
+                                    position: absolute;
+                                    content: '';
+                                    background-color: red;
+                                    width: 80%;
+                                    height: 3px;
+                                    bottom: 45%;
+                                    right: 0;
+                                }
+                            }
+
+                            span {
+                                display: flex;
+                                align-items: center;
+                                font-weight: 600;
+                                font-size: 1.25rem;
+                            }
+                        }
+
+
+                    }
+
+                    button {
+                        background-color: #000;
+                        border-radius: 6px;
+                        color: #fff;
+                        font-weight: 600;
+                        padding: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
