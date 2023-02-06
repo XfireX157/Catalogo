@@ -11,7 +11,6 @@ import token from "../../../http/Token";
 
 interface ICards {
   itens: IProducts[];
-  url: string;
   styles: {
     readonly [styles: string]: string;
 };
@@ -25,7 +24,6 @@ interface ICards {
 export default function Cards({
   styles,
   itens,
-  url,
   items,
   setItems,
   setEdit,
@@ -80,7 +78,7 @@ export default function Cards({
               <AiOutlineEdit />
             </span>}
             <img
-              src={url + item.filename}
+              src={item.filename}
               alt="Chapa de madeira, tipo pinus"
               onClick={() => FilterCard(item)}
               draggable="false"
