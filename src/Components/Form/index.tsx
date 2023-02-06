@@ -27,7 +27,7 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
-  const [image, setImage] = useState<any>("");
+  const [image, setImage] = useState<File | null>(null);
   const [types, setTypes] = useState({
     imageError: '',
     categoryError: '',
@@ -36,38 +36,41 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
     priceError: ''
   })
 
+  console.log(image)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("image", image);
+    image && formData.append("image", image);
     formData.append("title", title);
     formData.append("description", description);
     formData.append("price", price);
     formData.append("discount", discount);
     formData.append("category", category);
 
+    console.log(formData)
     if(edit.id){
       await http.patch(`/Update/${edit.id}`, formData)
       .then((response) => {
-        console.log(response)
+        console.log(response.data)
         setItems(items.map((item: any, index: any) => edit.id === index ? response.data.results : item))
         setActive({...active, formAdd: false})
       }).catch((err: any) => {
         console.log(err)
       })
     }else {
-      if(!image.length) setTypes({...types, imageError: "adicione uma imagem antes", titleError: "", descriptionError: "", categoryError: "", priceError: ""});
-      if(!price.length)setTypes({...types, priceError: "adicione um preço" , titleError: "",  descriptionError: "", categoryError: ""});
-      if(category === 'Categoria' || !category.length)setTypes({...types, categoryError: "adicione uma categoria antes", titleError: "", descriptionError: ""});
-      if(!description.length)setTypes({...types, descriptionError: "adicione uma descrição" , titleError: ""});
-      if(!title.length)setTypes({...types, titleError: "adicione um titulo"});
+      if(!image) return setTypes({...types, imageError: "adicione uma imagem antes", titleError: "", descriptionError: "", categoryError: "", priceError: ""});
+      if(!price.length) return setTypes({...types, priceError: "adicione um preço" , titleError: "",  descriptionError: "", categoryError: ""});
+      if(category === 'Categoria' || !category.length) return setTypes({...types, categoryError: "adicione uma categoria antes", titleError: "", descriptionError: ""});
+      if(!description.length) return setTypes({...types, descriptionError: "adicione uma descrição" , titleError: ""});
+      if(!title.length) return setTypes({...types, titleError: "adicione um titulo"});
 
       else {
         await http.post("/Create", formData)
         .then((response) => {
           console.log(response);
-          setItemsList({category, description, filename: image, price, title, discount})
+          setItemsList({category, description, filename: response.data.results.filename , price, title, discount})
           setActive({...active, formAdd: false})
         })
         .catch((err: any) => {
@@ -97,7 +100,7 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
             type="text"
             placeholder="Título"
             value={title}
-            onChange={(e: any) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             name="title"
           />
           <p className={styles.CloseForm__Form__error}> {types.titleError} </p>
@@ -108,7 +111,7 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
             type="text"
             placeholder="Descrição"
             value={description}
-            onChange={(e: any) => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             name="description"
           />
            <p className={styles.CloseForm__Form__error}> {types.descriptionError} </p>
@@ -132,7 +135,7 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
             type="text"
             placeholder="Preço"
             value={price}
-            onChange={(e: any) => setPrice(e.target.value)}
+            onChange={(e) => setPrice(e.target.value)}
             name="price"
           />
           <p className={styles.CloseForm__Form__error}>{types.priceError}</p>
@@ -143,7 +146,7 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
             type="text"
             placeholder="Desconto"
             value={discount}
-            onChange={(e: any) => setDiscount(e.target.value)}
+            onChange={(e) => setDiscount(e.target.value)}
             name="discount"
           />
         </Label>
@@ -166,7 +169,10 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
             id="file"
             type="file"
             placeholder="File"
-            onChange={(e: any) => setImage(e.target.files[0])}
+            onChange={(e) => {
+              if(!e.target.files) return
+              return setImage(e.target.files[0])
+            }}
             name="file"
           />
         </Label>

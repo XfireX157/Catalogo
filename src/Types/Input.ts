@@ -3,6 +3,6 @@ export interface InputProps {
     type: string
     placeholder: string
     value?: string | ReadonlyArray<string>
-    onChange: any
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     name: string
 }

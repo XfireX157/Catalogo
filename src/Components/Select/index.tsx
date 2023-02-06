@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 import { ICategory } from '../../Types/ICategory'
 import { IProducts } from '../../Types/IProducts'
@@ -22,14 +22,11 @@ interface ISelect {
 }
 
 export default function Select({categoryMap, setCategoryMap, items, setItems, setEdit, active, setActive, setEditCategory}: ISelect) {
-
   const [open, setOpen] = useState<boolean | object | null | string | number>(null)
-  const [url, setUrl] = useState('')
 
   const getItems = async () => {
     const res = await http.get("/GetNewsAll")
     setItems(res.data.results)
-    setUrl(res.data.url)
   }
 
   const getCategory = async () => {
@@ -69,9 +66,8 @@ export default function Select({categoryMap, setCategoryMap, items, setItems, se
     <>
       <section className={styles.SelectMenu} id="products">
         {filterCategory.map((item) => (
-          <>
+          <Fragment key={item._id}>
             <div
-              key={item._id}
               onClick={() => filtered(item)}
               className={open === item.categoryName ? styles.SelectMenu__btnActive : styles.SelectMenu__btn}>
               {token !== null &&<span className={styles.SelectMenu__closeCategory} onClick={() => deleteCategory(item._id!)}>X</span>}
@@ -81,8 +77,8 @@ export default function Select({categoryMap, setCategoryMap, items, setItems, se
               </div>
               {open === item.categoryName ? <MdKeyboardArrowDown size={35} /> : <MdKeyboardArrowUp size={35} />}
             </div>
-            {open && <Cards styles={styles} itens={filterItems} url={url} items={items} setItems={setItems} setEdit={setEdit} active={active} setActive={setActive} />}
-          </>
+            {open && <Cards styles={styles} itens={filterItems} items={items} setItems={setItems} setEdit={setEdit} active={active} setActive={setActive} />}
+          </Fragment>
         ))}
       </section>
     </>

@@ -30,6 +30,8 @@ function Home() {
 
   const setItemsList = (newItem: IProducts) => {
     setItems([...items, newItem]);
+
+    console.log(items)
   };
 
   return (
