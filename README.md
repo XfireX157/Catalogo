@@ -28,8 +28,6 @@ Open `http://localhost:3000`  to view it in the browser.
   <img align="center"  height="70" width="70" src="https://cdn-icons-png.flaticon.com/512/5968/5968358.png">
   <img align="center" height="60" width="80" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg">
   <img align="center"  height="70" width="70" src="https://cdn.iconscout.com/icon/free/png-256/node-js-1174925.png">
-  <img align="center" height="70" width="70" src="https://assets.website-files.com/61ca3f775a79ec5f87fcf937/6202fcdee5ee8636a145a41b_1234.png">
-  <img align="center" height="80" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg">
 </div> 
 
 ### `yarn build`
