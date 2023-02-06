@@ -21,7 +21,6 @@ interface IForm {
 }
 
 export default function Form({ setActive, active, setItemsList, edit, setEdit ,categoryMap, items, setItems }: IForm) {
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -36,25 +35,35 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
     priceError: ''
   })
 
-  console.log(image)
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
-    image && formData.append("image", image);
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("discount", discount);
-    formData.append("category", category);
+    image && formData.append("image", image.size ? image : edit.filename);
+    formData.append("title", title.length ? title : edit.title);
+    formData.append("description", description.length ? description : edit.description);
+    formData.append("price", price.length ? price : edit.price);
+    formData.append("discount", discount.length ? discount : edit.discount!);
+    formData.append("category", category.length ? category : edit.category);
 
     console.log(formData)
     if(edit.id){
       await http.patch(`/Update/${edit.id}`, formData)
-      .then((response) => {
-        console.log(response.data)
-        setItems(items.map((item: any, index: any) => edit.id === index ? response.data.results : item))
+      .then(() => {
+        setItems(items.map(((item: any) => {
+          if(item.id === edit.id) {
+            return {
+              ...items,
+              filename: image ? image : edit.filename,
+              title: title.length ? title : edit.title,
+              description: description.length ? description : edit.description,
+              category: category.length ? category : edit.category,
+              price: price.length ? price : edit.price,
+              discount: discount.length ? discount : edit.discount
+            }
+          }
+          return item
+        })))
         setActive({...active, formAdd: false})
       }).catch((err: any) => {
         console.log(err)

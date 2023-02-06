@@ -60,6 +60,11 @@ export default function Cards({
     setEdit({...item})
   };
 
+  function formatNumber(num: string | number ) {
+     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+  const formattedDiscount = (num: string) => formatNumber(parseInt(num).toFixed(2).replace('.', ','));
+
   return (
     <>
       <ul className={styles.SelectMenu__options}>
@@ -80,7 +85,7 @@ export default function Cards({
             <img
               src={item.filename}
               alt="Chapa de madeira, tipo pinus"
-              onClick={() => FilterCard(item)}
+              onClick={() => FilterCard(item)}  
               draggable="false"
             />
             <article className={styles.SelectMenu__options__option__info}>
@@ -90,8 +95,8 @@ export default function Cards({
                 <div className={styles.SelectMenu__options__option__info__Buy__price}>
                   <p>{item.category} </p>
                   <div className={styles.SelectMenu__options__option__info__Buy__price__discount}>
-                    <span>R$ {item.price} </span>
-                    {item.discount === "" ? null : <p>R$ {item.discount}</p>}
+                    <span>R$ {formattedDiscount(item.price)} </span>
+                    {item.discount === "" ? null : <p>R$ {formattedDiscount(item.discount!)}</p>}
                   </div>
                 </div>
                 <button type="button" onClick={() => Open?.openWhatsApp()}>
