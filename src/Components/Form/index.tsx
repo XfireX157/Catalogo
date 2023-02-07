@@ -8,12 +8,13 @@ import { useState } from "react";
 import { IProducts } from "../../Types/IProducts";
 import { ICategory } from "../../Types/ICategory";
 import { active, setActive } from "../../Types/IActive";
+import { IEdit } from "../../Types/IEdit";
 
 interface IForm {
   active: active
   setActive: React.Dispatch<React.SetStateAction<setActive>>;
-  edit: IProducts
-  setEdit: React.Dispatch<React.SetStateAction<IProducts>>
+  edit: IEdit
+  setEdit: React.Dispatch<React.SetStateAction<IEdit>>
   setItemsList: (newItem: IProducts) => void
   categoryMap: ICategory[]
   items: IProducts[]
@@ -26,7 +27,7 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
-  const [image, setImage] = useState<File | null>(null);
+  const [filename, setFilename] = useState<File | null>(null);
   const [types, setTypes] = useState({
     imageError: '',
     categoryError: '',
@@ -35,18 +36,28 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
     priceError: ''
   })
 
+  console.log(edit)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    image && formData.append("image", image.size ? image : edit.filename);
-    formData.append("title", title.length ? title : edit.title);
-    formData.append("description", description.length ? description : edit.description);
-    formData.append("price", price.length ? price : edit.price);
-    formData.append("discount", discount.length ? discount : edit.discount!);
-    formData.append("category", category.length ? category : edit.category);
+    const data = {
+      image: filename || edit.filename,
+      title: title.length ? title : edit.title,
+      description: description.length ? description : edit.description,
+      price: price.length ? price : edit.price,
+      discount: discount.length ? discount : edit.discount,
+      category: category.length ? category : edit.category
+  };
 
-    console.log(formData)
+    const formData = new FormData();
+    formData.append("image", data.image);
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("discount", data.discount!);
+    formData.append("category", data.category);
+
     if(edit.id){
       await http.patch(`/Update/${edit.id}`, formData)
       .then(() => {
@@ -54,22 +65,18 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
           if(item.id === edit.id) {
             return {
               ...items,
-              filename: image ? image : edit.filename,
-              title: title.length ? title : edit.title,
-              description: description.length ? description : edit.description,
-              category: category.length ? category : edit.category,
-              price: price.length ? price : edit.price,
-              discount: discount.length ? discount : edit.discount
+              ...data
             }
           }
           return item
         })))
         setActive({...active, formAdd: false})
+        setEdit({id: '', category: '', discount: '', description: '', filename: '', price: '', title: ''})
       }).catch((err: any) => {
         console.log(err)
       })
     }else {
-      if(!image) return setTypes({...types, imageError: "adicione uma imagem antes", titleError: "", descriptionError: "", categoryError: "", priceError: ""});
+      if(!filename) return setTypes({...types, imageError: "adicione uma imagem antes", titleError: "", descriptionError: "", categoryError: "", priceError: ""});
       if(!price.length) return setTypes({...types, priceError: "adicione um preço" , titleError: "",  descriptionError: "", categoryError: ""});
       if(category === 'Categoria' || !category.length) return setTypes({...types, categoryError: "adicione uma categoria antes", titleError: "", descriptionError: ""});
       if(!description.length) return setTypes({...types, descriptionError: "adicione uma descrição" , titleError: ""});
@@ -87,8 +94,6 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
         });
       }
     }
-
-    setEdit({id: '', category: '', discount: '', description: '', filename: '', price: '', title: ''})
   };
 
   return (
@@ -167,8 +172,8 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
             height: true,
             boxShadow: "2px 4px  rgb(60, 59, 59)",
           }}>
-          {image ? (
-            <img src={URL.createObjectURL(image)} alt="Url da imagem" />
+          {filename ? (
+            <img src={URL.createObjectURL(filename)} alt="Url da imagem" />
           ) : (
             <div>
               <IoIosAdd fontSize={35} />
@@ -180,7 +185,7 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit ,c
             placeholder="File"
             onChange={(e) => {
               if(!e.target.files) return
-              return setImage(e.target.files[0])
+              return setFilename(e.target.files[0])
             }}
             name="file"
           />

@@ -11,11 +11,12 @@ import token from "../../../http/Token";
 import FormCategory from "../../../Components/FormCategory";
 import { ICategory } from "../../../Types/ICategory";
 import { IProducts } from "../../../Types/IProducts";
+import { IEdit } from "../../../Types/IEdit";
 
 function Home() {
   const [categoryMap, setCategoryMap] = useState<ICategory[]>([]);
   const [items, setItems] = useState<IProducts[]>([]);
-  const [edit, setEdit] = useState<IProducts>({id: '', category: '', description: '', filename: '', price: '', title: '', discount: ''});
+  const [edit, setEdit] = useState<IEdit>({id: '', category: '', description: '', filename: '', price: '', title: '', discount: ''});
   const [editCategory, setEditCategory] = useState("");
   const [active, setActive] = useState({
     formCategory: false,
@@ -46,6 +47,7 @@ function Home() {
           setActive={setActive}
           active={active}
           setEdit={setEdit}
+          edit={edit}
           setEditCategory={setEditCategory}
         />
         {active.formAdd && (

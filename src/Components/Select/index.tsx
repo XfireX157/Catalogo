@@ -3,11 +3,12 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 import { ICategory } from '../../Types/ICategory'
 import { IProducts } from '../../Types/IProducts'
 import { AiOutlineEdit } from 'react-icons/ai'
+import { active, setActive } from '../../Types/IActive'
+import { IEdit } from '../../Types/IEdit'
 import Cards from './Cards'
 import styles from './Select.module.scss'
 import http from '../../http/interceptors'
 import token from '../../http/Token'
-import { active, setActive } from '../../Types/IActive'
 
 
 interface ISelect {
@@ -17,11 +18,12 @@ interface ISelect {
   setItems: React.Dispatch<React.SetStateAction<IProducts[]>>
   active: active;
   setActive: React.Dispatch<React.SetStateAction<setActive>>;
-  setEdit: React.Dispatch<React.SetStateAction<IProducts>>
+  edit: IEdit
+  setEdit: React.Dispatch<React.SetStateAction<IEdit>>
   setEditCategory: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function Select({categoryMap, setCategoryMap, items, setItems, setEdit, active, setActive, setEditCategory}: ISelect) {
+export default function Select({categoryMap, setCategoryMap, items, setItems, setEdit, edit, active, setActive, setEditCategory}: ISelect) {
   const [open, setOpen] = useState<boolean | object | null | string | number>(null)
 
   const getItems = async () => {
@@ -77,7 +79,7 @@ export default function Select({categoryMap, setCategoryMap, items, setItems, se
               </div>
               {open === item.categoryName ? <MdKeyboardArrowDown size={35} /> : <MdKeyboardArrowUp size={35} />}
             </div>
-            {open && <Cards styles={styles} itens={filterItems} items={items} setItems={setItems} setEdit={setEdit} active={active} setActive={setActive} />}
+            {open && <Cards styles={styles} itens={filterItems} items={items} setItems={setItems} setEdit={setEdit} edit={edit} active={active} setActive={setActive} />}
           </Fragment>
         ))}
       </section>
