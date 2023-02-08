@@ -82,7 +82,7 @@ export default function Cards({
                 </span>
               )}
               {token !== null && (
-                <span className={styles.SelectMenu__options__option__edit} onClick={() => updateCard({...item})}>
+                <span className={styles.SelectMenu__options__option__edit} onClick={() => updateCard(item)}>
                   <AiOutlineEdit />
                 </span>
               )}
