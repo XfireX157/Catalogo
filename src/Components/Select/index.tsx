@@ -40,7 +40,6 @@ export default function Select({categoryMap, setCategoryMap, items, setItems, se
     await http.delete(`/CategoryDelete/${id}`)
       .then(() => {
         setCategoryMap(categoryMap.filter((item) => item._id !== id))
-        window.location.reload()
       }).catch((err: any) => console.log(err))
   }
 

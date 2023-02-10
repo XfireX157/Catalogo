@@ -10,7 +10,6 @@ import Modal_Card from "../../../Components/Modal_Card";
 import http from "../../../http/interceptors";
 import token from "../../../http/Token";
 
-
 interface ICards {
   itens: IProducts[];
   styles: {
@@ -30,7 +29,6 @@ export default function Cards({
   items,
   setItems,
   setEdit,
-  edit,
   active,
   setActive,
 }: ICards) {
@@ -61,8 +59,6 @@ export default function Cards({
     setActive({ ...active, formAdd: true, type: false });
     setEdit(item);
   };
-
-  console.log(itens)
 
   function formatNumber(num: string | number) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");

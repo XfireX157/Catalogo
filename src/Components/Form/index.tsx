@@ -70,8 +70,6 @@ export default function Form({ setActive, active, setItemsList, edit, setEdit, c
               }
             }
             return item
-
-           
           })))
           setActive({ ...active, formAdd: false })
           setEdit({ id: '', category: '', discount: '', description: '', filename: '', price: '', title: '' })
