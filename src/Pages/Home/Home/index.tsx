@@ -16,7 +16,15 @@ import { IEdit } from "../../../Types/IEdit";
 function Home() {
   const [categoryMap, setCategoryMap] = useState<ICategory[]>([]);
   const [items, setItems] = useState<IProducts[]>([]);
-  const [edit, setEdit] = useState<IEdit>({id: '', category: '', description: '', filename: '', price: '', title: '', discount: ''});
+  const [edit, setEdit] = useState<IEdit>({
+    id: "",
+    category: "",
+    description: "",
+    filename: "",
+    price: "",
+    title: "",
+    discount: "",
+  });
   const [editCategory, setEditCategory] = useState("");
   const [active, setActive] = useState({
     formCategory: false,
@@ -31,7 +39,7 @@ function Home() {
 
   const setItemsList = (newItem: IProducts) => {
     setItems([...items, newItem]);
-    console.log(items)
+    console.log(items);
   };
 
   return (
@@ -70,6 +78,8 @@ function Home() {
             editCategory={editCategory}
           />
         )}
+        
+
         <Footer />
       </div>
       {token !== null && <ButtonAdding setActive={setActive} active={active} />}
